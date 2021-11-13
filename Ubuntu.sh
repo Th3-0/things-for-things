@@ -105,6 +105,7 @@
 #securing perms
  perms() {
      chmod 640 /etc/shadow
+     Run
  }
     
 Run
