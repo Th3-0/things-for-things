@@ -36,6 +36,7 @@
     apt-get update -yq
     apt-get upgrade -yq
     apt-get dist-upgrade -yq
+    Run
 }
 
 #firewall2
@@ -43,17 +44,20 @@
     apt-get install ufw -yq
     ufw enable 
     ufw status
+    Run
 }
 
-#disable root
+#disable root4
  rootDisable() {
     passwd -l root
+    Run
 }
 
 #clamav
  clamav() {
     apt-get install clamav -yq
     clamscan /home
+    Run
 }
 
 #unauthorized files3
@@ -70,9 +74,10 @@
     find / -name "*.pdf" -type f
     echo "----OTHER----"
     find / -txt "*.txt" -type f
+    Run
 }
 
-#change user passwords
+#change user passwords5
  passwrds() {
     echo "please type username account you want to change, or type q to quit"
     read -p "" user
@@ -84,7 +89,25 @@
             passwd $user
             m*M5->2_KT/~-m84
             m*M5->2_KT/~-m84
+            passwrds
 }
+
+#password Policy
+ psswdPolicy() {
+    apt-get install libpam-cracklib -yq
+    mkdir Backups
+    cp /etc/login.defs Backups
+    cp /etc/pam.d/common-password Backups
+    sed -i -e 's/PASS_MAX_DAYS\t[[:digit:]]\+/PASS_MAX_DAYS\t90/' /etc/login.defs
+    sed -i -e 's/PASS_MIN_DAYS\t[[:digit:]]\+/PASS_MIN_DAYS\t0/' /etc/login.defs
+    sed -i -e 's/difok=3\+/difok=3 ucredit=-2 lcredit=-2 dcredit=-2 ocredit=-2/' /etc/pam.d/common-password
+    sed -i -e 's/sha512/sha512 remember=5/g' /etc/pam.d/common-password
+ }
+
+#securing perms
+ perms() {
+     chmod 640 /etc/shadow
+ }
     
 
 
