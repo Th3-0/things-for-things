@@ -13,8 +13,8 @@
     echo " 1:Updates                  2:Enable Firewall"
     echo " 3:Find bad files           4:Disable rooot"
     echo " 5:Change Passwords         6:passwd Policy"
-    echo " 7:enable/secure ssh        7:secure passwd/shadow perms"
-    echo " 8:scan for known bad apps  9:scan for malware"
+    echo " 7:enable/secure ssh        8:secure passwd/shadow perms"
+    echo " 9:scan for known bad apps  10:scan for malware"
     echo " <ctrl-C> to quit"
 
     read -p "" input
@@ -27,7 +27,7 @@
             6) psswdPolicy;;
             7) ssh;;
             8) perms;;
-            9) clamav;;
+            10) clamav;;
         esac  
 }
 
@@ -71,7 +71,7 @@
     find / -name "*.png" -type f
     find / -name "*.jpg" -type f
     find / -name "*.jpeg" -type f
-    find / -name "*.pdf" -type f
+   # find / -name "*.pdf" -type f
     echo "----OTHER----"
     find / -txt "*.txt" -type f
     Run
@@ -87,8 +87,6 @@
         
         else
             passwd $user
-            m*M5->2_KT/~-m84
-            m*M5->2_KT/~-m84
             passwrds
 }
 
