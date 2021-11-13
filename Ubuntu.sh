@@ -101,6 +101,7 @@
     sed -i -e 's/PASS_MIN_DAYS\t[[:digit:]]\+/PASS_MIN_DAYS\t0/' /etc/login.defs
     sed -i -e 's/difok=3\+/difok=3 ucredit=-2 lcredit=-2 dcredit=-2 ocredit=-2/' /etc/pam.d/common-password
     sed -i -e 's/sha512/sha512 remember=5/g' /etc/pam.d/common-password
+    Run
  }
 
 #securing perms
