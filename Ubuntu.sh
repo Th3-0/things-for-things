@@ -88,6 +88,7 @@
         else
             passwd $user
             passwrds
+        fi
 }
 
 #password Policy
