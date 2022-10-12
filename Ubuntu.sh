@@ -1,7 +1,7 @@
 #!/bin/bash
  
 # selection
- Run() {
+Run() {
     echo "██████╗░██╗░░░░░███████╗███████╗██████╗░"
     echo "██╔══██╗██║░░░░░██╔════╝██╔════╝██╔══██╗"
     echo "██████╦╝██║░░░░░█████╗░░█████╗░░██████╔╝"
@@ -31,37 +31,37 @@
         esac  
 }
 
-#updates1
- update() {
+#updates-1
+update() {
     apt-get update -yq
     apt-get upgrade -yq
     apt-get dist-upgrade -yq
     Run
 }
 
-#firewall2
- firewall() {
+#firewall-2
+firewall() {
     apt-get install ufw -yq
     ufw enable 
     ufw status
     Run
 }
 
-#disable root4
- rootDisable() {
+#disable_root-4
+rootDisable() {
     passwd -l root
     Run
 }
 
-#clamav
- clamav() {
+#clamav-10
+clamav() {
     apt-get install clamav -yq
     clamscan /home
     Run
 }
 
-#unauthorized files3
- badFiles() {
+#unauthorized_files-3
+badFiles() {
     echo "----MEDIA----"
     find / -name "*.mp4" -type f
     find / -name "*.mp3" -type f
@@ -77,8 +77,9 @@
     Run
 }
 
-#change user passwords5
- passwrds() {
+#change_user_passwords-5
+#This is shit. Change when able
+passwrds() {
     echo "please type username account you want to change, or type q to quit"
     read -p "" user
         if [ $user = "q"]
@@ -91,8 +92,8 @@
         fi
 }
 
-#password Policy
- psswdPolicy() {
+#password Policy-6
+psswdPolicy() {
     apt-get install libpam-cracklib -yq
     mkdir Backups
     cp /etc/login.defs Backups
@@ -102,13 +103,13 @@
     sed -i -e 's/difok=3\+/difok=3 ucredit=-2 lcredit=-2 dcredit=-2 ocredit=-2/' /etc/pam.d/common-password
     sed -i -e 's/sha512/sha512 remember=5/g' /etc/pam.d/common-password
     Run
- }
+}
 
-#securing perms
- perms() {
+#securing perms-8
+perms() {
      chmod 640 /etc/shadow
      Run
- }
+}
     
 Run
 
