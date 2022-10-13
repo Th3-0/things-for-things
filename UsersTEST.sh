@@ -16,4 +16,11 @@ mapfile -t CurrentAdminUsers < <(members sudo)
 mapfile -t CurrentNormUsers < <(echo ${AllCurrentUsers[@]} ${CurrentAdminUsers[@]} | tr ' ' '\n' | sort | uniq -u)
 
 #Comparing Admins
+NeededUsers=($CurrentUser)
+enteradmins() {
+    read -p "Please list all Admin Users: " adminanswer
+    if [$adminanswer == "done."] then return fi
+    NeededUsers+=($adminanswer)
+    NeededUsers
+}
 
