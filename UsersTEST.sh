@@ -23,4 +23,6 @@ enteradmins() {
     NeededUsers+=($adminanswer)
     NeededUsers
 }
+mapfile -t AdminDiffs < <(echo ${CurrentAdminUsers[@]} | tr ' ' '\n' | sort | uniq -u)
+
 
