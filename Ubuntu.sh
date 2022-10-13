@@ -2,13 +2,18 @@
  
 # selection
 Run() {
+    clear
     echo "██████╗░██╗░░░░░███████╗███████╗██████╗░"
     echo "██╔══██╗██║░░░░░██╔════╝██╔════╝██╔══██╗"
     echo "██████╦╝██║░░░░░█████╗░░█████╗░░██████╔╝"
     echo "██╔══██╗██║░░░░░██╔══╝░░██╔══╝░░██╔═══╝░"
     echo "██████╦╝███████╗███████╗███████╗██║░░░░░"
     echo "╚═════╝░╚══════╝╚══════╝╚══════╝╚═╝░░░░░"
-    echo "________________________________________"
+    echo "========================================"
+    echo -e "NOTE: ONLY ENABLE SSH IF IN README\n*ssh will not be run in all"
+    echo "========================================"
+    echo "BEFORE UPDATING SELECT APT SOURCES"
+    echo "========================================"
     echo " Please Select option you wish to run"
     echo " 1:Updates                  2:Enable Firewall"
     echo " 3:Find bad files           4:Disable rooot"
@@ -28,11 +33,13 @@ Run() {
             7) ssh;;
             8) perms;;
             10) clamav;;
+            11) all;;
         esac  
 }
 
 #updates-1
 update() {
+    echo "check apt sources first"
     apt-get update -yq
     apt-get upgrade -yq
     apt-get dist-upgrade -yq
@@ -110,7 +117,20 @@ perms() {
      chmod 640 /etc/shadow
      Run
 }
-    
+ssh() {
+    echo "not yet available"
+}
+
+all() {
+    firewall
+    badFiles
+    rootDisable
+    psswdPolicy
+    passwrds
+    perms
+    clamav
+    Run
+}
 Run
 
 
