@@ -17,12 +17,40 @@ mapfile -t CurrentNormUsers < <(echo ${AllCurrentUsers[@]} ${CurrentAdminUsers[@
 
 #Comparing Admins
 NeededUsers=($CurrentUser)
-enteradmins() {
-    read -p "Please list all Admin Users: " adminanswer
-    if [$adminanswer == "done."] then return fi
-    NeededUsers+=($adminanswer)
-    NeededUsers
-}
-mapfile -t AdminDiffs < <(echo ${CurrentAdminUsers[@]} | tr ' ' '\n' | sort | uniq -u)
 
+enteradmins() {
+    read -p "Please list all Admin Users, When done type[done.]: " adminanswer
+    if [ $adminanswer == "done." ]
+    then 
+        return 1
+    elif [ $adminanswer != $CurrentUser ]
+    then 
+        NeededUsers+=($adminanswer)
+        enteradmins
+    elif  [ $adminanswer == $CurrentUser ]
+    then
+        enteradmins
+    fi
+}
+enteradmins
+
+mapfile -t AdminDiffs < <(echo ${CurrentAdminUsers[@]} ${NeededUsers[@]} | tr ' ' '\n' | sort | uniq -u)
+
+for (( i=0; i<${#AdminDiffs[@]}; i++ ));
+do
+    if [[ " ${NeededUsers[*]} " =~ " ${AdminDiffs[i]} " ]]
+    then #if user is on README but not currently admin
+        if [[ " ${CurrentNormUsers[@]} " =~ " ${AdminDiffs[i]}"]] 
+        then # user is a standard user that needs to be upgraded
+            echo "change standard user ${AdminDiffs[i]} to admin"
+        elif [[ ! " ${CurrentNormUsers[@]} " =~ " ${AdminDiffs[i]}"]]
+        then # user is not present on system
+            echo "add admin user ${AdminDiffs[i]}"
+        fi
+    elif [[ ! " ${NeededUsers[*]} " =~ " ${AdminDiffs[i]} " ]]
+    then #user is on system but not readme
+        echo "delete user ${AdminDiffs[i]}"
+    fi
+        
+    
 
