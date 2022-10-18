@@ -1,8 +1,8 @@
-#!/bin/bash -
+#!/bin/bash 
 #title           :ProhibitedPrograms.sh
 #description     :Will use keywords to find hacking/prohibited programs(not malware)
 #author          :Th3-0
-#version         :0.1
+#version         :1.0
 #usage           :"bash ProhibitedPrograms.sh" or "./ProhibitedPrograms.sh"
 #==========================================================================================
 echo "programs to look into deleting"
