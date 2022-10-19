@@ -8,7 +8,7 @@
 echo "programs to look into deleting"
 echo "all output will be entered into investigate.txt file in home dir."
 
-user=$(whoami)
+read -p "Please enter main CyberPatriots user" user
 #insert thing to specify different keyword files
 read -p "enter the path of the keyword file:" KeywordsFile
 if [ $KeywordsFile =="" ];
