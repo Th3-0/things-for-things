@@ -1,7 +1,7 @@
 # cyberpatriots-checklists
 This is all of the custom cyberpatriots resources that I use for competition.
 
-Windows-Checklist:
+Windows-Checklist: \n
     The windows checklist is a very basic windows checklist for cyberpatriots, it has not been customized with things found from competition as I did not use windows
 Ubunut Checklist:
     The ubuntu checklist has much more useful info and commands
