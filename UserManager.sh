@@ -50,7 +50,7 @@ enteradmins() {
 }
 enteradmins
 
-#ype [done.]: " StandardAnswer
+read -p "please enter all standard users when finished type [done.]: " StandardAnswer
         if [ $StandardAnswer != "done." ]
         then 
             NeededStandard+=($StandardAnswer)
