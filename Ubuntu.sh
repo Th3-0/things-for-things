@@ -44,7 +44,7 @@ update() {
     apt-get update -yq
     apt-get upgrade -yq
     apt-get dist-upgrade -yq
-    Run
+    Confirmation
 }
 
 #firewall-2
@@ -52,37 +52,38 @@ firewall() {
     apt-get install ufw -yq
     ufw enable 
     ufw status
-    Run
+    Confirmation
 }
 
 #disable_root-4
 rootDisable() {
     passwd -l root
-    Run
+    Confirmation
 }
 
 #clamav-10
 clamav() {
     apt-get install clamav -yq
     clamscan /home
-    Run
+    Confirmation
 }
 
 #unauthorized_files-3
 badFiles() {
     echo "----MEDIA----"
-    find / -name "*.mp4" -type f
-    find / -name "*.mp3" -type f
-    find / -name "*.mov" -type f
-    find / -name "*.wav" -type f
+    find / -name "*.mp4" -type f > Badfiles.log
+    find / -name "*.mp3" -type f > Badfiles.log
+    find / -name "*.mov" -type f > Badfiles.log
+    find / -name "*.wav" -type f > Badfiles.log
     echo "----PICTURES----"
-    find / -name "*.png" -type f
-    find / -name "*.jpg" -type f
-    find / -name "*.jpeg" -type f
-   # find / -name "*.pdf" -type f
+    find / -name "*.png" -type f > Badfiles.log
+    find / -name "*.jpg" -type f > Badfiles.log
+    find / -name "*.jpeg" -type f > Badfiles.log
+    find / -name "*.pdf" -type f > Badfiles.log
     echo "----OTHER----"
-    find / -txt "*.txt" -type f
-    Run
+    find / -name "*.txt" -type f > Badfiles.log
+    find / -name "*.docx" -type f > Badfiles.log
+    Confirmation
 }
 
 #change_user_passwords-5
@@ -224,6 +225,7 @@ passwrds() {
             echo "${AllCurrentUsers[i]}:CyberPatri0t$" | chpasswd
         fi
     done
+    Confirmation
 }
 
 #password Policy-6
@@ -236,13 +238,13 @@ psswdPolicy() {
     sed -i -e 's/PASS_MIN_DAYS\t[[:digit:]]\+/PASS_MIN_DAYS\t0/' /etc/login.defs
     sed -i -e 's/difok=3\+/difok=3 ucredit=-2 lcredit=-2 dcredit=-2 ocredit=-2/' /etc/pam.d/common-password
     sed -i -e 's/sha512/sha512 remember=5/g' /etc/pam.d/common-password
-    Run
+    Confirmation
 }
 
 #securing perms-8
 perms() {
-     chmod 640 /etc/shadow
-     Run
+    chmod 640 /etc/shadow
+    Confirmation
 }
 
 #badPrograms-9
@@ -287,11 +289,13 @@ badPrograms() {
     grep -Ev $SecondaryFilters /home/$user/ProgramsToCheck > ProgramsToCheck1
     rm ProgramsToCheck |  && mv ProgramsToCheck1 ProgramsToCheck
     end_question
+    Confirmation
 }
 
 #ssh-7
 ssh() {
     echo "not yet available"
+    Confirmation
 }
 
 #all-11
@@ -303,7 +307,15 @@ all() {
     passwrds
     perms
     clamav
-    Run
+    Confirmation
+}
+
+Confirmation() {
+    read -p "type c when you want to continue" hi
+    if [ $hi == "c" ]
+    then
+        Run
+    fi
 }
 Run
 
