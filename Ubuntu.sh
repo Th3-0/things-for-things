@@ -333,7 +333,7 @@ all() {
 }
 
 Confirmation() {
-    read -p "type c when you want to continue" hi
+    read -p "type c when you want to continue: " hi
     if [ $hi == "c" ]
     then
         Run
