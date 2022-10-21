@@ -41,35 +41,51 @@ Run() {
 #updates-1
 update() {
     echo "check apt sources first"
-    apt-get update -yq
-    apt-get upgrade -yq
-    apt-get dist-upgrade -yq
+    echo "================================================================" >> ScriptLogs
+    echo "                          UPDATES                               " >> ScriptLogs
+    echo "================================================================" >> ScriptLogs
+    apt-get update -yq >> ScriptLogs
+    apt-get upgrade -yq >> ScriptLogs
+    apt-get dist-upgrade -yq >> ScriptLogs
     Confirmation
 }
 
 #firewall-2
 firewall() {
+    echo "================================================================" >> ScriptLogs
+    echo "                          UFW STATUS                               " >> ScriptLogs
+    echo "================================================================" >> ScriptLogs
     apt-get install ufw -yq
     ufw enable 
-    ufw status
+    ufw status >> ScriptLogs
     Confirmation
 }
 
 #disable_root-4
 rootDisable() {
-    passwd -l root
+    echo "================================================================" >> ScriptLogs
+    echo "                          ROOT DISABLE                               " >> ScriptLogs
+    echo "================================================================" >> ScriptLogs
+    passwd -l root >> ScriptLogs
     Confirmation
 }
 
 #clamav-10
 clamav() {
-    apt-get install clamav -yq
-    clamscan /home
+    echo "================================================================" >> ScriptLogs
+    echo "                           ClamAV                               " >> ScriptLogs
+    echo "================================================================" >> ScriptLogs
+    apt-get install clamav -yq >> ScriptLogs
+    clamscan /home >> ScriptLogs
     Confirmation
 }
 
 #unauthorized_files-3
 badFiles() {
+    echo "================================================================" >> ScriptLogs
+    echo "                          UFW STATUS                               " >> ScriptLogs
+    echo "   These files are stored in separate Badfiles.log file            " >> ScriptLogs
+    echo "================================================================" >> ScriptLogs
     echo "----MEDIA----"
     find / -name "*.mp4" -type f >> Badfiles.log
     find / -name "*.mp3" -type f >> Badfiles.log
@@ -88,6 +104,10 @@ badFiles() {
 
 #change_user_passwords-5
 passwrds() {
+    echo "================================================================" >> ScriptLogs
+    echo "                     PASSWORDS AND USERS                               " >> ScriptLogs
+    echo "     output for this is stored in separate UserChangeLog file" >> ScriptLogs
+    echo "================================================================" >> ScriptLogs
     CurrentUser=$(whoami)
     if [ $CurrentUser != "root" ]
     then
@@ -230,14 +250,14 @@ passwrds() {
 
 #password Policy-6
 psswdPolicy() {
-    apt-get install libpam-cracklib -yq
+    apt-get install libpam-cracklib -yq >> ScriptLogs
     mkdir Backups
     cp /etc/login.defs Backups
     cp /etc/pam.d/common-password Backups
-    sed -i -e 's/PASS_MAX_DAYS\t[[:digit:]]\+/PASS_MAX_DAYS\t90/' /etc/login.defs
-    sed -i -e 's/PASS_MIN_DAYS\t[[:digit:]]\+/PASS_MIN_DAYS\t0/' /etc/login.defs
-    sed -i -e 's/difok=3\+/difok=3 ucredit=-2 lcredit=-2 dcredit=-2 ocredit=-2/' /etc/pam.d/common-password
-    sed -i -e 's/sha512/sha512 remember=5/g' /etc/pam.d/common-password
+    sed -i -e 's/PASS_MAX_DAYS\t[[:digit:]]\+/PASS_MAX_DAYS\t90/' /etc/login.defs >> ScriptLogs
+    sed -i -e 's/PASS_MIN_DAYS\t[[:digit:]]\+/PASS_MIN_DAYS\t0/' /etc/login.defs  >> ScriptLogs
+    sed -i -e 's/difok=3\+/difok=3 ucredit=-2 lcredit=-2 dcredit=-2 ocredit=-2/' /etc/pam.d/common-password >> ScriptLogs
+    sed -i -e 's/sha512/sha512 remember=5/g' /etc/pam.d/common-password >> ScriptLogs
     Confirmation
 }
 
