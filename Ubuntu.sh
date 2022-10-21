@@ -71,18 +71,18 @@ clamav() {
 #unauthorized_files-3
 badFiles() {
     echo "----MEDIA----"
-    find / -name "*.mp4" -type f > Badfiles.log
-    find / -name "*.mp3" -type f > Badfiles.log
-    find / -name "*.mov" -type f > Badfiles.log
-    find / -name "*.wav" -type f > Badfiles.log
+    find / -name "*.mp4" -type f >> Badfiles.log
+    find / -name "*.mp3" -type f >> Badfiles.log
+    find / -name "*.mov" -type f >> Badfiles.log
+    find / -name "*.wav" -type f >> Badfiles.log
     echo "----PICTURES----"
-    find / -name "*.png" -type f > Badfiles.log
-    find / -name "*.jpg" -type f > Badfiles.log
-    find / -name "*.jpeg" -type f > Badfiles.log
-    find / -name "*.pdf" -type f > Badfiles.log
+    find / -name "*.png" -type f >> Badfiles.log
+    find / -name "*.jpg" -type f >> Badfiles.log
+    find / -name "*.jpeg" -type f >> Badfiles.log
+    find / -name "*.pdf" -type f >> Badfiles.log
     echo "----OTHER----"
-    find / -name "*.txt" -type f > Badfiles.log
-    find / -name "*.docx" -type f > Badfiles.log
+    find / -name "*.txt" -type f >> Badfiles.log
+    find / -name "*.docx" -type f >> Badfiles.log
     Confirmation
 }
 
@@ -153,21 +153,21 @@ passwrds() {
             if [[ ${CurrentNormUsers[*]} =~ ${AdminDiffs[i]} ]]
             then # user is a standard user that needs to be upgraded
                 usermod -aG sudo ${AdminDiffs[i]}
-                echo "change standard user ${AdminDiffs[i]} to admin" > UserChangeLog
+                echo "change standard user ${AdminDiffs[i]} to admin" >> UserChangeLog
             elif [[ ! ${CurrentNormUsers[*]} =~ ${AdminDiffs[i]} ]]
             then # user is not present on system
                 useradd -s /bin/bash -m -G sudo ${AdminDiffs[i]}
-                echo "add admin user ${AdminDiffs[i]}" > UserChangeLog
+                echo "add admin user ${AdminDiffs[i]}" >> UserChangeLog
             fi
         elif [[ ! ${NeededUsers[*]} =~ ${AdminDiffs[i]} ]]
         then #user is on system but not readme
             if [[  ${NeededStandard[*]} =~ ${AdminDiffs[i]} ]]
             then
                 deluser ${AdminDiffs[i]} sudo
-                echo "downgrade Admin ${AdminDiffs[i]} to standard" > UserChangeLog 
+                echo "downgrade Admin ${AdminDiffs[i]} to standard" >> UserChangeLog 
             else
                 userdel -rf ${AdminDiffs[i]}
-                echo "remove user ${AdminDiffs[i]}" > UserChangeLog
+                echo "remove user ${AdminDiffs[i]}" >> UserChangeLog
 
             fi
 
@@ -186,21 +186,21 @@ passwrds() {
             if [[ ${CurrentAdminUsers[*]} =~ ${StandardDiffs[i]} ]]
             then #user is admin that needs to be downgraded(shouldnt happen but is here just in case)
                 deluser ${StandardDiffs[i]} sudo
-                echo "change admin ${StandardDiffs[i]} to standard user" > UserChangeLog
+                echo "change admin ${StandardDiffs[i]} to standard user" >> UserChangeLog
             elif [[ ! ${CurrentAdminUsers[*]} =~ ${StandardDiffs[i]} ]]
             then # user is not present on system
                 useradd -s /bin/bash -m ${StandardDiffs[i]}
-                echo "add standard user ${StandardDiffs[i]}" > UserChangeLog
+                echo "add standard user ${StandardDiffs[i]}" >> UserChangeLog
             fi
         elif [[ ! ${NeededStandard[*]} =~ ${StandardDiffs[i]} ]]
         then #user is on system but not Readme
             if [[  ${NeededUsers[*]} =~ ${StandardDiffs[i]} ]]
             then #(again somewhat redundant) user is supposed to be admin
                 usermod -aG sudo ${StandardDiffs[i]}
-                echo "upgrade standard ${StandardDiffs[i]} to admin" > UserChangeLog
+                echo "upgrade standard ${StandardDiffs[i]} to admin" >> UserChangeLog
             else #user should not be on machine
                 userdel -rf ${StandardDiffs[i]}
-                echo "remove user ${StandardDiffs[i]}" > UserChangeLog
+                echo "remove user ${StandardDiffs[i]}" >> UserChangeLog
             fi
         fi
     done
@@ -264,7 +264,7 @@ badPrograms() {
     dpkg -l | awk '{print $2}' > /home/$user/keywords.temp
     for (( i=0; i<${#Keywords[@]}; i++ ));
     do #fix this clusterfuck at some point
-    grep ${Keywords[i]} /home/$user/keywords.temp > /home/$user/ProgramsToCheck #keep here as backup
+    grep ${Keywords[i]} /home/$user/keywords.temp >> /home/$user/ProgramsToCheck #keep here as backup
     done
     clear
     end_question () {
@@ -286,7 +286,7 @@ badPrograms() {
 
     read -p "Enter other filters in {filter}|{filter} format(do not includ {}) COMMON EX: lib|driver:" SecondaryFilters
     #really fucking stupid-ill fix eventually
-    grep -Ev $SecondaryFilters /home/$user/ProgramsToCheck > ProgramsToCheck1
+    grep -Ev $SecondaryFilters /home/$user/ProgramsToCheck >> ProgramsToCheck1
     rm ProgramsToCheck |  && mv ProgramsToCheck1 ProgramsToCheck
     end_question
     Confirmation
