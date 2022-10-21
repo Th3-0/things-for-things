@@ -307,7 +307,7 @@ badPrograms() {
     read -p "Enter other filters in {filter}|{filter} format(do not includ {}) COMMON EX: lib|driver:" SecondaryFilters
     #really fucking stupid-ill fix eventually
     grep -Ev $SecondaryFilters /home/$user/ProgramsToCheck >> ProgramsToCheck1
-    rm ProgramsToCheck |  && mv ProgramsToCheck1 ProgramsToCheck
+    rm ProgramsToCheck | mv ProgramsToCheck1 ProgramsToCheck
     end_question
     Confirmation
 }
