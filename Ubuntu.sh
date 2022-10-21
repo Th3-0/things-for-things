@@ -110,6 +110,7 @@ passwrds() {
     echo "     output for this is stored in separate UserChangeLog file" >> ScriptLogs
     echo "================================================================" >> ScriptLogs
     CurrentUser=$(whoami)
+    apt install members
     if [ $CurrentUser != "root" ]
     then
         echo "============================================"
