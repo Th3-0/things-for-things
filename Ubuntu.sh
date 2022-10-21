@@ -131,14 +131,14 @@ passwrds() {
         fi
     }
     enteradmins
-
-    #ype [done.]: " StandardAnswer
-            if [ $StandardAnswer != "done." ]
-            then 
-                NeededStandard+=($StandardAnswer)
-                enterStandard
-            fi
-            return 1
+    enterStandard() {
+    read -p "Please list all Standard Users, When done type [done.]: " StandardAnswer
+    if [ $StandardAnswer != "done." ]
+    then 
+        NeededStandard+=($StandardAnswer)
+        enterStandard
+    fi
+    return 1
     }
     enterStandard
 
