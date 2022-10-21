@@ -86,19 +86,20 @@ badFiles() {
     echo "                          UFW STATUS                               " >> ScriptLogs
     echo "   These files are stored in separate Badfiles.log file            " >> ScriptLogs
     echo "================================================================" >> ScriptLogs
-    echo "----MEDIA----"
+    echo "----MEDIA----" >> Badfiles.log
     find / -name "*.mp4" -type f >> Badfiles.log
     find / -name "*.mp3" -type f >> Badfiles.log
     find / -name "*.mov" -type f >> Badfiles.log
     find / -name "*.wav" -type f >> Badfiles.log
-    echo "----PICTURES----"
+    echo "----PICTURES----" >> Badfiles.log
     find / -name "*.png" -type f >> Badfiles.log
     find / -name "*.jpg" -type f >> Badfiles.log
     find / -name "*.jpeg" -type f >> Badfiles.log
     find / -name "*.pdf" -type f >> Badfiles.log
-    echo "----OTHER----"
-    find / -name "*.txt" -type f >> Badfiles.log
+    echo "----OTHER----" >> Badfiles.log
+    #find / -name "*.txt" -type f >> Badfiles.log
     find / -name "*.docx" -type f >> Badfiles.log
+    echo "complete:  If nothing found initially try enabling txt files"
     Confirmation
 }
 
