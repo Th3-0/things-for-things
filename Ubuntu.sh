@@ -231,7 +231,7 @@ passwrds() {
     echo "============================================================================"
     echo "                                PASSWORDS                                   "
     echo "============================================================================"
-    echo "ALL PASSWORDS EXCEPT ROOT AND MAIN USER WILL BE CHANGED TO [CyberPatri0t$]"
+    echo "ALL PASSWORDS EXCEPT ROOT AND MAIN USER WILL BE CHANGED TO [Cyb3rPatr!0t$]"
     #=============PASSWORDS============
     updateUserDefs
     #====================================================================================================================
@@ -244,7 +244,7 @@ passwrds() {
         if [ ${AllCurrentUsers[i]} != $MainUser ]
         then
             echo "changing password for ${AllCurrentUsers[i]}"
-            echo "${AllCurrentUsers[i]}:CyberPatri0t$" | chpasswd
+            echo "${AllCurrentUsers[i]}:Cyb3rPatr!0t$" | chpasswd
         fi
     done
     Confirmation
