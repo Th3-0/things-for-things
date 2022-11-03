@@ -24,12 +24,12 @@ Run() {
 
     read -p "" input
         case $input in
-            1) update;;
+            #1) update;;
             2) firewall;;
             3) badFiles;;
             4) rootDisable;;
             5) passwrds;;
-            6) psswdPolicy;;
+            #6) psswdPolicy;;
             7) ssh;;
             8) perms;;
             9) badPrograms;;
@@ -58,6 +58,8 @@ firewall() {
     apt-get install ufw -yq
     ufw enable 
     ufw status >> ScriptLogs
+    sudo ufw allow outgoing
+    sudo ufw deny incoming
     Confirmation
 }
 
