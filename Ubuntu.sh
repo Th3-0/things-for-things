@@ -87,18 +87,18 @@ badFiles() {
     echo "   These files are stored in separate Badfiles.log file            " >> ScriptLogs
     echo "================================================================" >> ScriptLogs
     echo "----MEDIA----" >> Badfiles.log
-    find / -name "*.mp4" -type f >> Badfiles.log
-    find / -name "*.mp3" -type f >> Badfiles.log
-    find / -name "*.mov" -type f >> Badfiles.log
-    find / -name "*.wav" -type f >> Badfiles.log
+    find /home -name "*.mp4" -type f >> Badfiles.log
+    find /home -name "*.mp3" -type f >> Badfiles.log
+    find /home -name "*.mov" -type f >> Badfiles.log
+    find /home -name "*.wav" -type f >> Badfiles.log
     echo "----PICTURES----" >> Badfiles.log
-    find / -name "*.png" -type f >> Badfiles.log
-    find / -name "*.jpg" -type f >> Badfiles.log
-    find / -name "*.jpeg" -type f >> Badfiles.log
-    find / -name "*.pdf" -type f >> Badfiles.log
+    find /home -name "*.png" -type f >> Badfiles.log
+    find /home-name "*.jpg" -type f >> Badfiles.log
+    find /home -name "*.jpeg" -type f >> Badfiles.log
+    find /home -name "*.pdf" -type f >> Badfiles.log
     echo "----OTHER----" >> Badfiles.log
-    #find / -name "*.txt" -type f >> Badfiles.log
-    find / -name "*.docx" -type f >> Badfiles.log
+    find /home -name "*.txt" -type f >> Badfiles.log
+    find /home -name "*.docx" -type f >> Badfiles.log
     echo "complete:  If nothing found initially try enabling txt files"
     Confirmation
 }
@@ -175,6 +175,7 @@ passwrds() {
             if [[ ${CurrentNormUsers[*]} =~ ${AdminDiffs[i]} ]]
             then # user is a standard user that needs to be upgraded
                 usermod -aG sudo ${AdminDiffs[i]}
+                usermod -aG adm ${AdminDiffs[i]}
                 echo "change standard user ${AdminDiffs[i]} to admin" >> UserChangeLog
             elif [[ ! ${CurrentNormUsers[*]} =~ ${AdminDiffs[i]} ]]
             then # user is not present on system
@@ -208,6 +209,7 @@ passwrds() {
             if [[ ${CurrentAdminUsers[*]} =~ ${StandardDiffs[i]} ]]
             then #user is admin that needs to be downgraded(shouldnt happen but is here just in case)
                 deluser ${StandardDiffs[i]} sudo
+                deluser ${StandardDiffs[i]} adm
                 echo "change admin ${StandardDiffs[i]} to standard user" >> UserChangeLog
             elif [[ ! ${CurrentAdminUsers[*]} =~ ${StandardDiffs[i]} ]]
             then # user is not present on system
@@ -219,6 +221,7 @@ passwrds() {
             if [[  ${NeededUsers[*]} =~ ${StandardDiffs[i]} ]]
             then #(again somewhat redundant) user is supposed to be admin
                 usermod -aG sudo ${StandardDiffs[i]}
+                usermod -aG adm ${StandardDiffs[i]}
                 echo "upgrade standard ${StandardDiffs[i]} to admin" >> UserChangeLog
             else #user should not be on machine
                 userdel -rf ${StandardDiffs[i]}
