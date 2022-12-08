@@ -30,7 +30,7 @@ Run() {
             3) badFiles;;
             4) rootDisable;;
             5) passwrds;;
-            #6) psswdPolicy;;
+            6) psswdPolicy;;
             7) ssh;;
             8) perms;;
             9) badPrograms;;
@@ -274,10 +274,25 @@ psswdPolicy() {
     mkdir Backups
     cp /etc/login.defs Backups
     cp /etc/pam.d/common-password Backups
-    sed -i -e 's/PASS_MAX_DAYS\t[[:digit:]]\+/PASS_MAX_DAYS\t90/' /etc/login.defs >> ScriptLogs
-    sed -i -e 's/PASS_MIN_DAYS\t[[:digit:]]\+/PASS_MIN_DAYS\t0/' /etc/login.defs  >> ScriptLogs
-    sed -i -e 's/difok=3\+/difok=3 ucredit=-2 lcredit=-2 dcredit=-2 ocredit=-2/' /etc/pam.d/common-password >> ScriptLogs
-    sed -i -e 's/sha512/sha512 remember=5/g' /etc/pam.d/common-password >> ScriptLogs
+    cp /etc/pam.d/common-auth Backups
+    sudo git clone https://github.com/Th3-0/things-for-things.git
+    cd things-for-things/ConfigFiles
+    #common-password
+    sudo mv /etc/pam.d/common-password /etc/pam.d/common-passwordOLD
+    sudo mv common-password /etc/pam.d/common-password
+    sudo chmod 640 /etc/pam.d/common-password
+    sudo chown root:root /etc/common-password
+    #common-auth
+    sudo mv /etc/pam.d/common-auth /etc/pam.d/common-authOLD
+    sudo mv common-auth /etc/pam.d/common-auth
+    sudo chmod 640 /etc/pam.d/common-auth
+    sudo chown root:root /etc/common-auth
+    #login.defs
+    sudo mv /etc/login.defs /etc/login.defsOLD
+    sudo mv login.defs /etc/login.defs
+    sudo chmod 640 /etc/login.defs
+    sudo chown root:root /etc/login.defs
+
     Confirmation
 }
 
