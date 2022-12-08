@@ -108,7 +108,7 @@ badFiles() {
     find /home -name "*.wav" -type f >> Badfiles.log
     echo "----PICTURES----" >> Badfiles.log
     find /home -name "*.png" -type f >> Badfiles.log
-    find /home-name "*.jpg" -type f >> Badfiles.log
+    find /home -name "*.jpg" -type f >> Badfiles.log
     find /home -name "*.jpeg" -type f >> Badfiles.log
     find /home -name "*.pdf" -type f >> Badfiles.log
     echo "----OTHER----" >> Badfiles.log
