@@ -20,6 +20,7 @@ Run() {
     echo " 5:Change Passwords         6:passwd Policy"
     echo " 7:enable/secure ssh        8:secure passwd/shadow perms"
     echo " 9:scan for known bad apps  10:scan for malware"
+    echo " 11:Install Lynis"
     echo " <ctrl-C> to quit"
 
     read -p "" input
@@ -34,7 +35,8 @@ Run() {
             8) perms;;
             9) badPrograms;;
             10) clamav;;
-            11) all;;
+            11) lynis;;
+            12) all;;
         esac  
 }
 
@@ -61,6 +63,17 @@ firewall() {
     sudo ufw allow outgoing
     sudo ufw deny incoming
     Confirmation
+}
+
+#install Lynis-11
+lynis() {
+    read -p "has lynis been installed yet?  y:n " LynisAnswer
+    if [ $LynisAnswer == "n" ] then
+        sudo apt-get install git
+        sudo git clone https://github.com/CISOfy/lynis
+        cd lynis && ./lynis audit system
+    fi
+    cd lynis && ./lynis audit system
 }
 
 #disable_root-4
