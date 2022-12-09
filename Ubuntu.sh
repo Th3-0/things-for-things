@@ -70,7 +70,7 @@ lynis() {
     read -p "has lynis been installed yet?  y:n " LynisAnswer
     if [ $LynisAnswer == "n" ] then
         sudo apt-get install git
-        sudo git clone https://github.com/CISOfy/lynis
+        git clone https://github.com/CISOfy/lynis
         cd lynis && ./lynis audit system
     fi
     cd lynis && ./lynis audit system
@@ -275,7 +275,7 @@ psswdPolicy() {
     cp /etc/login.defs Backups
     cp /etc/pam.d/common-password Backups
     cp /etc/pam.d/common-auth Backups
-    sudo git clone https://github.com/Th3-0/things-for-things.git
+    #git clone https://github.com/Th3-0/things-for-things.git
     cd things-for-things/ConfigFiles
     #common-password
     sudo mv /etc/pam.d/common-password /etc/pam.d/common-passwordOLD
