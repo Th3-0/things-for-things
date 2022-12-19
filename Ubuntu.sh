@@ -40,28 +40,32 @@ Run() {
         esac  
 }
 
+sudo apt-get install script -yq
+script ScriptLogs
+
 #updates-1
 update() {
     echo "check apt sources first"
-    echo "================================================================" >> ScriptLogs
-    echo "                          UPDATES                               " >> ScriptLogs
-    echo "================================================================" >> ScriptLogs
-    apt-get update -yq >> ScriptLogs
-    apt-get upgrade -yq >> ScriptLogs
-    apt-get dist-upgrade -yq >> ScriptLogs
+    echo "================================================================" 
+    echo "                          UPDATES                               "
+    echo "================================================================"
+    apt-get update -yq 
+    apt-get upgrade -yq 
+    apt-get dist-upgrade -yq 
     Confirmation
 }
 
 #firewall-2
 firewall() {
-    echo "================================================================" >> ScriptLogs
-    echo "                          UFW STATUS                               " >> ScriptLogs
-    echo "================================================================" >> ScriptLogs
+    echo "================================================================" 
+    echo "                          UFW STATUS                               "
+    echo "================================================================"
     apt-get install ufw -yq
     ufw enable 
-    ufw status >> ScriptLogs
-    sudo ufw allow outgoing
-    sudo ufw deny incoming
+    sudo ufw default allow outgoing
+    sudo ufw default deny incoming
+    sudo ufw logging medium
+    sudo ufw status verbose
     Confirmation
 }
 
@@ -78,52 +82,69 @@ lynis() {
 
 #disable_root-4
 rootDisable() {
-    echo "================================================================" >> ScriptLogs
-    echo "                          ROOT DISABLE                               " >> ScriptLogs
-    echo "================================================================" >> ScriptLogs
-    passwd -l root >> ScriptLogs
+    echo "================================================================"
+    echo "                          ROOT DISABLE                               "
+    echo "================================================================" 
+    passwd -l root 
     Confirmation
 }
 
 #clamav-10
 clamav() {
-    echo "================================================================" >> ScriptLogs
-    echo "                           ClamAV                               " >> ScriptLogs
-    echo "================================================================" >> ScriptLogs
-    apt-get install clamav -yq >> ScriptLogs
-    clamscan /home >> ScriptLogs
+    echo "================================================================"
+    echo "                           ClamAV                               "
+    echo "================================================================"
+    apt-get install clamav -yq
+    clamscan /home
     Confirmation
 }
 
 #unauthorized_files-3
 badFiles() {
-    echo "================================================================" >> ScriptLogs
-    echo "                          UFW STATUS                               " >> ScriptLogs
-    echo "   These files are stored in separate Badfiles.log file            " >> ScriptLogs
-    echo "================================================================" >> ScriptLogs
-    echo "----MEDIA----" >> Badfiles.log
+    echo "================================================================"
+    echo "                          Media File locations                   "
+    echo "   These files are stored in separate Badfiles.log file            "
+    echo "================================================================"
+    echo "----Video----" >> Badfiles.log
     find /home -name "*.mp4" -type f >> Badfiles.log
-    find /home -name "*.mp3" -type f >> Badfiles.log
+    find /home -name "*.mpeg" -type f >> Badfiles.log
+    find /home -name "*.avi" -type f >> Badfiles.log
+    find /home -name "*.mpg" -type f >> Badfiles.log
+    find /home -name "*.webm" -type f >> Badfiles.log
     find /home -name "*.mov" -type f >> Badfiles.log
     find /home -name "*.wav" -type f >> Badfiles.log
     echo "----PICTURES----" >> Badfiles.log
     find /home -name "*.png" -type f >> Badfiles.log
     find /home -name "*.jpg" -type f >> Badfiles.log
     find /home -name "*.jpeg" -type f >> Badfiles.log
-    find /home -name "*.pdf" -type f >> Badfiles.log
+    find /home -name "*.gif" -type f >> Badfiles.log
+    find /home -name "*.bmp" -type f >> Badfiles.log
+    find /home -name "*.tiff" -type f >> Badfiles.log
+    find /home -name "*.raw" -type f >> Badfiles.log
+    echo "----AUDIO----" >> Badfiles.log
+    find /home -name "*.mp3" -type f >> Badfiles.log
+    find /home -name "*.ogg" -type f >> Badfiles.log
+    find /home -name "*.m4a" -type f >> Badfiles.log
+    find /home -name "*.flac" -type f >> Badfiles.log
     echo "----OTHER----" >> Badfiles.log
     find /home -name "*.txt" -type f >> Badfiles.log
     find /home -name "*.docx" -type f >> Badfiles.log
+    find /home -name "*.pdf" -type f >> Badfiles.log
+    find /home -name "*.doc" -type f >> Badfiles.log
+    find /home -name "*.ppt" -type f >> Badfiles.log
+    find /home -name "*.pptx" -type f >> Badfiles.log
+    find /home -name "*.xls" -type f >> Badfiles.log
+    find /home -name "*.ps" -type f >> Badfiles.log
     echo "complete:  If nothing found initially try enabling txt files"
     Confirmation
 }
 
 #change_user_passwords-5
 passwrds() {
-    echo "================================================================" >> ScriptLogs
-    echo "                     PASSWORDS AND USERS                               " >> ScriptLogs
-    echo "     output for this is stored in separate UserChangeLog file" >> ScriptLogs
-    echo "================================================================" >> ScriptLogs
+    echo "================================================================" 
+    echo "                     PASSWORDS AND USERS                               "
+    echo "     output for this is stored in separate UserChangeLog file"
+    echo "================================================================"
     CurrentUser=$(whoami)
     apt install members -yq
     if [ $CurrentUser != "root" ]
