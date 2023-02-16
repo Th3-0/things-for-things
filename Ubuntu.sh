@@ -293,23 +293,13 @@ passwrds() {
 psswdPolicy() {
     apt-get install libpam-cracklib -yq >> ScriptLogs
     #git clone https://github.com/Th3-0/things-for-things.git
-    cd things-for-things/ConfigFiles
+    cd ConfigFiles
     #common-password
-    sudo cp /etc/pam.d/common-password /etc/pam.d/common-passwordOLD
-    sudo chmod 640 common-password
-    sudo chown root:root common-password
-    sudo cp -f common-password /etc/pam.d/common-password
+    sudo cat common-password > /etc/pam.d/common-password
     #common-auth
-    sudo mv /etc/pam.d/common-auth /etc/pam.d/common-authOLD
-    sudo chmod 640 common-auth
-    sudo chown root:root common-auth
-    sudo cp -f common-auth /etc/pam.d/common-auth
+    sudo cat common-auth > /etc/pam.d/common-auth
     #login.defs
-    sudo mv /etc/login.defs /etc/login.defsOLD
-    sudo chmod 640 login.defs
-    sudo chown root:root login.defs
-    sudo cp -f login.defs /etc/pam.d/login.defs
-
+    sudo cat login.defs > /etc/pam.d/login.defs
     Confirmation
 }
 
@@ -326,7 +316,7 @@ badPrograms() {
 
     read -p "Please enter main CyberPatriots user" user
     #insert thing to specify different keyword files
-    read -p "enter the path of the keyword file:" KeywordsFile
+    read -p "enter the path of the keyword file(default is PPKeywords.txt):" KeywordsFile
     if [ $KeywordsFile =="" ];
     then
     KeywordsFile="PPKeywords.txt"
