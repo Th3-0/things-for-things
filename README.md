@@ -1,2 +1,2 @@
 # cyberpatriots-checklists
-Scripts and shit
+Scripts n shit
