@@ -49,9 +49,9 @@ update() {
     echo "================================================================" 
     echo "                          UPDATES                               "
     echo "================================================================"
-    apt-get update -yq 
-    apt-get upgrade -yq 
-    apt-get dist-upgrade -yq 
+    DEBIAN_FRONTEND=noninteractive apt-get update -yq 
+    DEBIAN_FRONTEND=noninteractive apt-get upgrade -yq 
+    DEBIAN_FRONTEND=noninteractive apt-get dist-upgrade -yq 
     Confirmation
 }
 
