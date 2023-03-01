@@ -49,9 +49,9 @@ update() {
     echo "================================================================" 
     echo "                          UPDATES                               "
     echo "================================================================"
-    DEBIAN_FRONTEND=noninteractive apt-get update -yq 
-    DEBIAN_FRONTEND=noninteractive apt-get upgrade -yq 
-    DEBIAN_FRONTEND=noninteractive apt-get dist-upgrade -yq 
+    sudo DEBIAN_FRONTEND=noninteractive apt-get update -yq 
+    sudo DEBIAN_FRONTEND=noninteractive apt-get upgrade -yq 
+    sudo DEBIAN_FRONTEND=noninteractive apt-get dist-upgrade -yq 
     Confirmation
 }
 
@@ -356,7 +356,8 @@ badPrograms() {
 
 #ssh-7
 ssh() {
-    echo "not yet available"
+    cd ConfigFiles
+    sudo cat sshd_config > /etc/ssh/sshd_config
     Confirmation
 }
 
