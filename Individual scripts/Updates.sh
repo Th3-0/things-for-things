@@ -35,19 +35,18 @@ fi
 
 
 #canonical Partner
-#focal-backports
-if grep -iq "deb http://us.archive.canonical.com/ubuntu focal" /etc/apt/sources.list
+if grep -iq "deb http://archive.canonical.com/ubuntu focal" /etc/apt/sources.list
 then
     sudo sed -i '/deb http:\/\/archive.canonical.com\/ubuntu focal/c\deb http:\/\/archive.canonical.com\/ubuntu focal partner' /etc/apt/sources.list
 else
-    echo "deb http://us.archive.ubuntu.com/ubuntu focal partner" >> /etc/apt/sources.list
+    echo "deb http://archive.canonical.com/ubuntu focal partner" >> /etc/apt/sources.list
 fi
 
-if grep -iq "deb-src http://us.archive.canonical.com/ubuntu focal" /etc/apt/sources.list
+if grep -iq "deb-src http://archive.canonical.com/ubuntu focal" /etc/apt/sources.list
 then
     sudo sed -i '/deb-src http:\/\/archive.canonical.com\/ubuntu focal/c\deb-src http:\/\/archive.canonical.com\/ubuntu focal partner' /etc/apt/sources.list
 else
-    echo "deb-src http://us.archive.ubuntu.com/ubuntu focal partner" >> /etc/apt/sources.list
+    echo "deb-src http://archive.canonical.com/ubuntu focal partner" >> /etc/apt/sources.list
 fi
 
 sudo apt-get install unattended-upgrades -yq
